@@ -1,0 +1,132 @@
+{% extends "highlight/base.html" %}
+
+{% block content %}
+
+{% if con_var == "" %}
+<h4>Train a new model</h4>
+
+<!-- Floating Multiline Textfield -->
+
+<style>
+html, body {width:100%; height:100%; }
+.loader {
+  margin: auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+#loading-overlay {
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1000;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.5);
+    text-align:center;}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<div id="loading-overlay">
+    <h4>Starting the training, this may take a while...</h4>
+    <div class="loader"></div>
+</div>
+
+
+<form action="doit/" method="post">
+{% csrf_token %}
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="language" name="language" value="Please choose..." readonly tabIndex="-1">
+        <label for="language" class="mdl-textfield__label">Language</label>
+        <ul for="language" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" name="language">
+            <li class="mdl-menu__item">German</li>
+            <li class="mdl-menu__item">English</li>
+        </ul>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="trainfile" name="trainfile">
+        <label class="mdl-textfield__label" for="trainfile">Path to training file...</label>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="validfile" name="validfile">
+        <label class="mdl-textfield__label" for="validfile">Path to validation file...</label>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="testfile" name="testfile">
+        <label class="mdl-textfield__label" for="testfile">Path to test file...</label>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="optimizer" name="optimizer" value="Please choose..." readonly tabIndex="-1">
+        <label for="optimizer" class="mdl-textfield__label">Optimizer</label>
+        <ul for="optimizer" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" name="optimizer">
+            <li class="mdl-menu__item">adam</li>
+            <li class="mdl-menu__item">adagrad</li>
+            <li class="mdl-menu__item">adadelta</li>
+            <li class="mdl-menu__item">sgd</li>
+            <li class="mdl-menu__item">rmsprop</li>
+        </ul>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="epochs" name="epochs" pattern="-?[0-9]*(\.[0-9]+)?">
+        <label class="mdl-textfield__label" for="epochs">Epochs</label>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="sentence_len" name="sentence_len" pattern="-?[0-9]*(\.[0-9]+)?">
+        <label class="mdl-textfield__label" for="sentence_len">Max sentence length...</label>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block;">
+        <input class="mdl-textfield__input" type="text" id="mx_doc_len" name="mx_doc_len" pattern="-?[0-9]*(\.[0-9]+)?">
+        <label class="mdl-textfield__label" for="mx_doc_len">Max sentences per document</label>
+    </div>
+
+    <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="Run training" onclick="$('#loading-overlay').show();"> &nbsp;
+    <input class="mdl-button mdl-js-button mdl-button--raised" type="reset" value="Reset">
+</form>
+<script type="text/javascript">
+$("#mrinput").keyup(function (e) {
+    autoheight(this);
+});
+
+function autoheight(a) {
+    if (!$(a).prop('scrollTop')) {
+        do {
+            var b = $(a).prop('scrollHeight');
+            var h = $(a).height();
+            $(a).height(h - 5);
+        }
+        while (b && (b != $(a).prop('scrollHeight')));
+    };
+    $(a).height($(a).prop('scrollHeight') + 20);
+}
+
+autoheight($("#mrinput"));
+</script>
+{% else %}
+    <h4>Trained Model</h4>
+
+    {% autoescape off %} {{ con_var }} {% endautoescape %}
+    <br><br>
+    <a href="/highlight/" class="mdl-button mdl-js-button mdl-button--raised" data-upgraded=",MaterialButton">Back</a>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "highlight/base.html" %}
+
+{% block content %}
+
+{% if con_var == "" %}
+<h4>Input your management report</h4>
+
+<!-- Floating Multiline Textfield -->
+<form action="doit/" method="post">
+{% csrf_token %}
+  <div class="mdl-textfield mdl-js-textfield" style="width:100%;">
+    <textarea class="mdl-textfield__input" id="mrinput" name="mrinput" type="text" style="min-height: 250px; background-color: #fcfcfc; resize:none;">Zur Erfüllung dieser Aufgaben nimmt die SWS das Personal und die Infrastruktur der Energieversorgung Schwerin GmbH & Co. KG (EVS) und der SIS Schweriner IT- und Servicegesellschaft mbH (SIS) in Anspruch. Die SWS-Gruppe strebt mittelfristig an, der marktführende Dienstleister für Versorgung und die Lösung kommunaler Aufgaben in der Landeshauptstadt Schwerin und der Region Westmecklenburg zu sein. Übertragung der Geschäftsanteile an der Netzgesellschaft Schwerin mbH (NGS) auf die Stadtwerke Schwerin GmbH (SWS): Mit dem Geschäftsanteilsübertragungsvertrag vom 21. September 2006 wurde der Übertragung der Geschäftsanteile der EVS an der NGS auf die SWS zum 1. Januar 2007 durch die Gesellschafter zugestimmt. Gleichzeitig übernahm die FIT das Vermögen der Sieben-Seen-Sportpark Porth/ Graubner KG GbR einschließlich Verbindlichkeiten gegenüber Kreditinstituten aus der Errichtung des Objektes mit einem Valutastand in Höhe von ca. EUR 8,6 Mio. zum Stichtag 1. März 2007. Dies konnte insbesondere durch zusätzliche Erträge aus Grundstücksverkäufen und dem Wegfall der Miete an die Porth & Graubner GbR für den Sieben-Seen-Sportpark (Abschnitt II) erreicht werden. Die Gesellschafterin wurde regelmäßig über alle wichtigen Geschäftsvorfälle unterrichtet und über die Entwicklung der Gesellschaft informiert. Dazu verhandelten in 2007 der Kommunale Arbeitgeberverband (KAV), die Vereinte Dienstleistungsgewerkschaft (ver.di) und die zum Konzern Stadtwerke Schwerin GmbH gehörenden Unternehmen SWS, EVS, Wasserversorgung- und Abwasserentsorgungsgesellschaft Schwerin mbH, Aqua Service Schwerin Beratungs- und Betriebsführungsgesellschaft mbH und Netzgesellschaft Schwerin mbH (NGS) zur sukzessiven Einführung des Tarifvertrages für Versorgungsbetriebe (TV-V). März 2008 zum Neubau eines Schwimmbades am Standort des Sieben-Seen-Sportparks als Ersatz für die Schwimmhalle Dreesch für die FIT die Chance zu Ergebnisverbesserungen. Die künftige Ertrags-, Finanz- und Vermögenslage der SWS wurde mit dem Wirtschaftsplan 2008 einschließlich einer fünfjährigen Erfolgsvorschau eingeschätzt. Aus der Beteiligung an der Netzgesellschaft Schwerin mbH wird in der Zukunft mit geringeren Beteiligungserträgen aufgrund der Kürzungen der anerkennungsfähigen Kosten durch die Bundesnetzagentur für Elektrizität, Gas, Telekommunikation, Post und Eisenbahnen (BNetzA) sowie der beginnenden Anreizregulierung ab 2009 zu rechnen sein. Die Gesellschafterin plant nach wie vor die Umstrukturierung der Steuerung der städtischen Gesellschaften und Eigenbetriebe der Landeshauptstadt Schwerin. Zur Prüfung des Jahresabschlusses der Stadtwerke Schwerin GmbH und des Konzernabschlusses 2008 wird die Rölfs WP Partner AG Wirtschaftsprüfungsgesellschaft, Alexandrinenstraße 19 a, 19055 Schwerin, bestellt: Dr. Wolfram Friedersdorff, Vertreter der Gesellschaftern Landeshauptstadt Schwerin Der Aufsichtsratsvorsitzende, Herr Dr. Friedersdorff, leitet die Sitzung und stellt die fristgerechte Versendung der Unterlagen und die Beschlussfähigkeit fest. TOP 5.11 Empfehlung an den Gesellschafter zur Feststellung des Jahresabschlusses SWS 2007 und Bestellung des Abschlussprüfers für das Jahr 2008 Der Aufsichtsrat der Stadtwerke Schwerin GmbH (SWS) empfiehlt der Gesellschafterversammlung folgenden Beschluss zu fassen:</textarea>
+    <label class="mdl-textfield__label" for="mrinput">Report lines...</label>
+  </div>
+  <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="Highlight"> &nbsp;
+  <input class="mdl-button mdl-js-button mdl-button--raised" type="reset" value="Reset">
+</form>
+<script type="text/javascript">
+$("#mrinput").keyup(function (e) {
+    autoheight(this);
+});
+
+function autoheight(a) {
+    if (!$(a).prop('scrollTop')) {
+        do {
+            var b = $(a).prop('scrollHeight');
+            var h = $(a).height();
+            $(a).height(h - 5);
+        }
+        while (b && (b != $(a).prop('scrollHeight')));
+    };
+    $(a).height($(a).prop('scrollHeight') + 20);
+}
+
+autoheight($("#mrinput"));
+</script>
+{% else %}
+    <h4>Highlighted results</h4>
+
+    {% autoescape off %} {{ con_var }} {% endautoescape %}
+    <br><br>
+    <a href="/highlight/" class="mdl-button mdl-js-button mdl-button--raised" data-upgraded=",MaterialButton">Back</a>
+{% endif %}
+
+{% endblock %}

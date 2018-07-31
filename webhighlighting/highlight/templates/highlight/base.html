@@ -1,0 +1,421 @@
+{% load static %}<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Management Report Highlighting Tool DEMO</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="{% static "images/android-desktop.png" %}">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="{% static "images/ios-desktop.png" %}">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="{% static "images/touch/ms-touch-icon-144x144-precomposed.png" %}">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="{% static "images/favicon.png" %}">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+{#    <link rel="stylesheet" href="{% static "styles.css" %}">#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+
+        /**
+         * Copyright 2015 Google Inc. All Rights Reserved.
+         *
+         * Licensed under the Apache License, Version 2.0 (the "License");
+         * you may not use this file except in compliance with the License.
+         * You may obtain a copy of the License at
+         *
+         *      http://www.apache.org/licenses/LICENSE-2.0
+         *
+         * Unless required by applicable law or agreed to in writing, software
+         * distributed under the License is distributed on an "AS IS" BASIS,
+         * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+         * See the License for the specific language governing permissions and
+         * limitations under the License.
+         */
+
+        html, body {
+          font-family: 'Roboto', 'Helvetica', sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+        .mdl-demo .mdl-layout__header-row {
+          padding-left: 40px;
+        }
+        .mdl-demo .mdl-layout.is-small-screen .mdl-layout__header-row h3 {
+          font-size: inherit;
+        }
+        .mdl-demo .mdl-layout__tab-bar-button {
+          display: none;
+        }
+        .mdl-demo .mdl-layout.is-small-screen .mdl-layout__tab-bar .mdl-button {
+          display: none;
+        }
+        .mdl-demo .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar,
+        .mdl-demo .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar-container {
+          overflow: visible;
+        }
+        .mdl-demo .mdl-layout__tab-bar-container {
+          height: 64px;
+        }
+        .mdl-demo .mdl-layout__tab-bar {
+          padding: 0;
+          padding-left: 16px;
+          box-sizing: border-box;
+          height: 100%;
+          width: 100%;
+        }
+        .mdl-demo .mdl-layout__tab-bar .mdl-layout__tab {
+          height: 64px;
+          line-height: 64px;
+        }
+        .mdl-demo .mdl-layout__tab-bar .mdl-layout__tab.is-active::after {
+          background-color: white;
+          height: 4px;
+        }
+        .mdl-demo main > .mdl-layout__tab-panel {
+          padding: 8px;
+          padding-top: 48px;
+        }
+        .mdl-demo .mdl-card {
+          height: auto;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+                  flex-direction: column;
+        }
+        .mdl-demo .mdl-card > * {
+          height: auto;
+        }
+        .mdl-demo .mdl-card .mdl-card__supporting-text {
+          margin: 40px;
+          -webkit-flex-grow: 1;
+              -ms-flex-positive: 1;
+                  flex-grow: 1;
+          padding: 0;
+          color: inherit;
+          width: calc(100% - 80px);
+        }
+        .mdl-demo.mdl-demo .mdl-card__supporting-text h4 {
+          margin-top: 0;
+          margin-bottom: 20px;
+        }
+        .mdl-demo .mdl-card__actions {
+          margin: 0;
+          padding: 4px 40px;
+          color: inherit;
+        }
+        .mdl-demo .mdl-card__actions a {
+          color: #00BCD4;
+          margin: 0;
+        }
+        .mdl-demo .mdl-card__actions a:hover,
+        .mdl-demo .mdl-card__actions a:active {
+          color: inherit;
+          background-color: transparent;
+        }
+        .mdl-demo .mdl-card__supporting-text + .mdl-card__actions {
+          border-top: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        .mdl-demo #add {
+          position: absolute;
+          right: 40px;
+          top: 36px;
+          z-index: 999;
+        }
+
+        .mdl-demo .mdl-layout__content section:not(:last-of-type) {
+          position: relative;
+          margin-bottom: 48px;
+        }
+        .mdl-demo section.section--center {
+          max-width: 860px;
+        }
+        .mdl-demo #features section.section--center {
+          max-width: 620px;
+        }
+        .mdl-demo section > header{
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-align-items: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-justify-content: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+        }
+        .mdl-demo section > .section__play-btn {
+          min-height: 200px;
+        }
+        .mdl-demo section > header > .material-icons {
+          font-size: 3rem;
+        }
+        .mdl-demo section > button {
+          position: absolute;
+          z-index: 99;
+          top: 8px;
+          right: 8px;
+        }
+        .mdl-demo section .section__circle {
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-align-items: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-justify-content: flex-start;
+              -ms-flex-pack: start;
+                  justify-content: flex-start;
+          -webkit-flex-grow: 0;
+              -ms-flex-positive: 0;
+                  flex-grow: 0;
+          -webkit-flex-shrink: 1;
+              -ms-flex-negative: 1;
+                  flex-shrink: 1;
+        }
+        .mdl-demo section .section__text {
+          -webkit-flex-grow: 1;
+              -ms-flex-positive: 1;
+                  flex-grow: 1;
+          -webkit-flex-shrink: 0;
+              -ms-flex-negative: 0;
+                  flex-shrink: 0;
+          padding-top: 8px;
+        }
+        .mdl-demo section .section__text h5 {
+          font-size: inherit;
+          margin: 0;
+          margin-bottom: 0.5em;
+        }
+        .mdl-demo section .section__text a {
+          text-decoration: none;
+        }
+        .mdl-demo section .section__circle-container > .section__circle-container__circle {
+          width: 64px;
+          height: 64px;
+          border-radius: 32px;
+          margin: 8px 0;
+        }
+        .mdl-demo section.section--footer .section__circle--big {
+          width: 100px;
+          height: 100px;
+          border-radius: 50px;
+          margin: 8px 32px;
+        }
+        .mdl-demo .is-small-screen section.section--footer .section__circle--big {
+          width: 50px;
+          height: 50px;
+          border-radius: 25px;
+          margin: 8px 16px;
+        }
+        .mdl-demo section.section--footer {
+          padding: 64px 0;
+          margin: 0 -8px -8px -8px;
+        }
+        .mdl-demo section.section--center .section__text:not(:last-child) {
+          border-bottom: 1px solid rgba(0,0,0,.13);
+        }
+        .mdl-demo .mdl-card .mdl-card__supporting-text > h3:first-child {
+          margin-bottom: 24px;
+        }
+        .mdl-demo .mdl-layout__tab-panel:not(#overview) {
+          background-color: white;
+        }
+        .mdl-demo #features section {
+          margin-bottom: 72px;
+        }
+        .mdl-demo #features h4, #features h5 {
+          margin-bottom: 16px;
+        }
+        .mdl-demo .toc {
+          border-left: 4px solid #C1EEF4;
+          margin: 24px;
+          padding: 0;
+          padding-left: 8px;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+                  flex-direction: column;
+        }
+        .mdl-demo .toc h4 {
+          font-size: 0.9rem;
+          margin-top: 0;
+        }
+        .mdl-demo .toc a {
+          color: #4DD0E1;
+          text-decoration: none;
+          font-size: 16px;
+          line-height: 28px;
+          display: block;
+        }
+        .mdl-demo .mdl-menu__container {
+          z-index: 99;
+        }
+
+        /*
+        INDIVIDUALS
+         */
+        #impact-slider-div > div {
+            margin-top: 0.9em;
+        }
+
+        /*
+        GETMDL SELECT
+         */
+        .getmdl-select .mdl-icon-toggle__label{float:right;margin-top:-30px;color:rgba(0,0,0,0.4)}.getmdl-select.is-focused .mdl-icon-toggle__label{color:#3f51b5}.getmdl-select .mdl-menu__container{width:100% !important;overflow:hidden}.getmdl-select .mdl-menu__container .mdl-menu .mdl-menu__item{font-size:16px}.getmdl-select__fullwidth .mdl-menu{width:100%}.getmdl-select__fix-height .mdl-menu__container{overflow-y:auto;max-height:300px !important}.getmdl-select__fix-height .mdl-menu.mdl-menu--top-left{bottom:auto;top:0}
+    </style>
+    <script type="text/javascript">
+        "use strict";!function(){function e(){getmdlSelect.init(".getmdl-select")}window.addEventListener?window.addEventListener("load",e,!1):window.attachEvent&&window.attachEvent("onload",e)}();var getmdlSelect={_defaultValue:{width:300},_addEventListeners:function(e){var t=e.querySelector("input"),n=e.querySelectorAll("li"),l=e.querySelector(".mdl-js-menu");t.onkeydown=function(e){38!=e.keyCode&&40!=e.keyCode||l.MaterialMenu.show()},l.onkeydown=function(e){13==e.keyCode&&t.focus()},[].forEach.call(n,function(n){n.onclick=function(){var a=n.textContent.trim();if(t.value=a,e.MaterialTextfield.change(a),setTimeout(function(){e.MaterialTextfield.updateClasses_()},250),t.dataset.val=n.dataset.val||"","createEvent"in document){var d=document.createEvent("HTMLEvents");d.initEvent("change",!1,!0),l.MaterialMenu.hide(),t.dispatchEvent(d)}else t.fireEvent("onchange")}})},init:function(e,t){var n=document.querySelectorAll(e);[].forEach.call(n,function(e){getmdlSelect._addEventListeners(e);var n=t||(e.querySelector(".mdl-menu").offsetWidth?e.querySelector(".mdl-menu").offsetWidth:getmdlSelect._defaultValue.width);e.style.width=n+"px",componentHandler.upgradeElement(e),componentHandler.upgradeElement(e.querySelector("ul"))})}};
+    </script>
+  </head>
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h3>Management Report Highlighting Tool <small>DEMO</small></h3>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+          {% if page_name == "index" %}
+              <a href="/highlight/#overview" class="mdl-layout__tab is-active">Highlighter</a>
+              <a href="#features" class="mdl-layout__tab">Infos</a>
+              <a href="/trainmodel" class="mdl-layout__tab">New Training</a>
+          {% elif page_name == "trainmodel" %}
+              <a href="/highlight/#overview" class="mdl-layout__tab">Highlighter</a>
+              <a href="#features" class="mdl-layout__tab">Infos</a>
+              <a href="/trainmodel" class="mdl-layout__tab is-active">New Training</a>
+          {% endif %}
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel is-active" id="overview">
+
+
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text">
+                {% block content %}{% endblock %}
+              </div>
+            </div>
+            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn3">
+              <li class="mdl-menu__item">Lorem</li>
+              <li class="mdl-menu__item" disabled>Ipsum</li>
+              <li class="mdl-menu__item">Dolor</li>
+            </ul>
+          </section>
+          <p>&nbsp;</p>
+        </div>
+        <div class="mdl-layout__tab-panel" id="features">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+                <h4>About this interface</h4>
+                <p>This is the highlighting tool that was developed within the context of the master thesis by Peter Mastens. The master thesis, which was supervised by Zahra Ahmadi and Dr. Andreas Karwath, studies neural sentiment analysis on business reports. This demo uses a pretrained network that is based on the Dependency Sensitive CNN architecture, that was proposed by Rhui Zhang <i>et al</i>. </p>
+                <h4>Training</h4>
+                <p>This interface provides the possibility to train a new model with your own data. Here is a short information about the data you have to give to the training-tool:</p>
+                    <ul>
+                        <li><b>Language:</b> This interface supports German and English training data. The language is needed for the tokenization of sentences, stopword removal and the word embeddings. This model uses pretrained word2vec models, the english one was trained by Google (Tomas Mikolov et al., https://code.google.com/archive/p/word2vec/), the German one was trained by Andreas Müller (https://github.com/devmount).</li>
+                        <li><b>Training-, validation- and test-file:</b> Please provide the data files with one instance per line, where the class (0 or 1) is the first token of the line and after it the system expects a blank. File upload is not supported in this version, so the files have to be stored locally and you only input the path to the files. Training- and validation datasets are needed for the training. The performance of the network will be reported on the test data.</li>
+                        <li><b>Optimizer:</b> Choose the optimizer that should be used for the optimization of the neural network.</li>
+                        <li><b>Epochs:</b> Choose the number of epochs for the training process. We have made good experience with 50-100 epochs with 60 sentences per document and 30 words per sentence.</li>
+                        <li><b>Max sentence length:</b> Choose the number of words that should be allowed per sentence. If a sentence is longer than this number, the system makes a cut off after the number of allowed words. If it is shorter, it is simply padded with zero-vectors.</li>
+                        <li><b>Max sentences per document:</b> Choose the number of sentences that should be allowed per instance. We use the Correlated Pattern Mining approach, that is explained in our paper, to filter the sentences, so that we reduce the number of sentences per document to the limit.</li>
+                    </ul>
+                <p></p>
+            </div>
+          </section>
+        </div>
+        <footer class="mdl-mega-footer">
+          <div class="mdl-mega-footer--bottom-section">
+            <div class="mdl-logo">
+              More Information
+            </div>
+            <ul class="mdl-mega-footer--link-list">
+              <li><a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a></li>
+            </ul>
+          </div>
+        </footer>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <script>
+        // update value field
+		$(document).on('input', '#impact-slider', function() {
+			$('#impact-slider-value').html( parseFloat($(this).val()).toFixed(2) );
+        });
+
+		// filtering
+		$(document).ready(function() {
+            $("#filter-go").click(function() {
+                // greater or less than
+                var greater = ($('input[name=radio-greater-less]:checked').val() == "greater") ? true : false;
+                var impact_threshold = parseFloat($('input[id=impact-slider]').val()).toFixed(2);
+
+                // hide
+                $('.mdl-card__supporting-text').children().filter(function() {
+                    return (greater) ?
+                        Math.abs($(this).data('impact')) < impact_threshold :
+                        Math.abs($(this).data('impact')) > impact_threshold;
+                }).hide();
+
+                // show
+                $('.mdl-card__supporting-text').children().filter(function() {
+                    return (greater) ?
+                        Math.abs($(this).data('impact')) >= impact_threshold :
+                        Math.abs($(this).data('impact')) <= impact_threshold;
+                }).show();
+            });
+        });
+    </script>
+  </body>
+</html>
